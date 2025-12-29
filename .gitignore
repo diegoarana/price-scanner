@@ -24,3 +24,20 @@ dist-ssr
 *.sw?
 
 package-lock.json
+
+# Vercel
+.vercel
+
+# Certificados SSL
+.cert/
+*.pem
+
+# Environment variables (IMPORTANTE - NO SUBIR API KEYS)
+.env
+.env.local
+.env.production
+.env.development
+
+# PWA
+public/sw.js
+public/workbox-*.js
