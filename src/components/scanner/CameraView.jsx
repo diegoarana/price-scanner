@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Camera, AlertCircle, Settings } from 'lucide-react';
 import { useCamera } from '../../hooks/useCamera';
 import { hybridOCRService } from '../../services/hybridOCRService';
-import { preprocessForOCR } from '../../utils/imageProcessor';
 import PriceDetectionOverlay from './PriceDetectionOverlay';
 import MultiplePricesSelector from './MultiplePricesSelector';
 
@@ -37,13 +36,9 @@ const CameraView = ({ onPriceDetected }) => {
       }
       console.log('✓ Imagen capturada');
 
-      setDebugInfo('Procesando imagen...');
-      const processed = await preprocessForOCR(imageData);
-      setProcessedImage(processed);
-      console.log('✓ Imagen preprocesada');
-
+      // SIN preprocesamiento - enviar imagen original
       setDebugInfo('Analizando precio...');
-      const result = await hybridOCRService.recognizePrice(processed);
+      const result = await hybridOCRService.recognizePrice(imageData);
       
       console.log('Resultado OCR:', result);
       setOcrMethod(result.method);
@@ -53,7 +48,8 @@ const CameraView = ({ onPriceDetected }) => {
         console.log('✓ Múltiples precios detectados:', result.allPrices);
         setMultiplePrices({
           prices: result.allPrices,
-          method: result.method
+          method: result.method,
+          descriptions: result.descriptions || []
         });
         setDebugInfo('');
       } else if (result.price) {
@@ -278,7 +274,7 @@ const CameraView = ({ onPriceDetected }) => {
               <li>Mantén la cámara estable</li>
               <li>Asegura buena iluminación sin reflejos</li>
               <li>Si detecta varios precios, podrás elegir el correcto</li>
-              <li>Usando: OCR.space → Tesseract (automático)</li>
+              <li>Usando: Google Vision → OCR.space → Tesseract</li>
             </ul>
           </div>
         </div>
@@ -291,11 +287,14 @@ const CameraView = ({ onPriceDetected }) => {
 const OCRSettings = ({ onClose }) => {
   const [settings, setSettings] = React.useState(hybridOCRService.getStatus());
 
-  const handleToggle = (service) => {
+  const handleToggle = (service) => { 
     const newSettings = { ...settings };
     const key = service.toLowerCase();
     
-    if (key === 'tesseract') {
+    if (key === 'googlevision') {
+      newSettings.googleVision = newSettings.googleVision === 'enabled' ? 'disabled' : 'enabled';
+      hybridOCRService.configure({ useGoogleVision: newSettings.googleVision === 'enabled' });
+    } else if (key === 'tesseract') {
       newSettings.tesseract = newSettings.tesseract === 'enabled' ? 'disabled' : 'enabled';
       hybridOCRService.configure({ useTesseract: newSettings.tesseract === 'enabled' });
     } else if (key === 'ocrspace') {
@@ -315,8 +314,14 @@ const OCRSettings = ({ onClose }) => {
       
       <div className="space-y-2">
         <ToggleItem
+          label="Google Cloud Vision"
+          description="Más preciso (requiere backend)"
+          enabled={settings.googleVision === 'enabled'}
+          onToggle={() => handleToggle('googleVision')}
+        />
+        <ToggleItem
           label="OCR.space"
-          description="Rápido y preciso (25K/mes gratis)"
+          description="Rápido (25K/mes gratis)"
           enabled={settings.ocrspace === 'enabled'}
           onToggle={() => handleToggle('ocrspace')}
         />
@@ -329,7 +334,7 @@ const OCRSettings = ({ onClose }) => {
       </div>
       
       <div className="text-xs text-gray-600 pt-2 border-t border-gray-200">
-        💡 OCR.space se prueba primero (rápido). Si falla, usa Tesseract (offline).
+        💡 Google Vision (mejor) → OCR.space → Tesseract. Se usa el primero disponible.
       </div>
     </div>
   );

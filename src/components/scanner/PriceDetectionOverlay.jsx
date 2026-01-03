@@ -4,6 +4,7 @@ import { X, Check, Sparkles } from 'lucide-react';
 const PriceDetectionOverlay = ({ price, onAccept, onReject, method }) => {
   const getMethodInfo = (methodName) => {
     const methods = {
+      'google-vision': { name: 'Google Vision', icon: '☁️', color: 'text-green-600' },
       'ocrspace': { name: 'OCR.space', icon: '🌐', color: 'text-blue-600' },
       'tesseract': { name: 'Tesseract', icon: '📖', color: 'text-purple-600' },
     };
@@ -32,7 +33,7 @@ const PriceDetectionOverlay = ({ price, onAccept, onReject, method }) => {
           </div>
           
           <div className="text-5xl font-bold text-indigo-600 mb-4">
-            ${price.toFixed(2)}
+            ${price}
           </div>
           
           <div className="flex gap-2">

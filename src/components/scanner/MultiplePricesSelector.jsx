@@ -12,6 +12,7 @@ const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
 
   const getMethodInfo = (methodName) => {
     const methods = {
+      'google-vision': { name: 'Google Vision', icon: '☁️', color: 'text-green-600' },
       'ocrspace': { name: 'OCR.space', icon: '🌐', color: 'text-blue-600' },
       'tesseract': { name: 'Tesseract', icon: '📖', color: 'text-purple-600' },
     };
@@ -87,7 +88,7 @@ const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
                     </div>
                     <div className="flex-1">
                       <div className="text-2xl font-bold text-gray-800">
-                        ${price.toFixed(2)}
+                        ${price}
                       </div>
                       <div className="flex gap-2 mt-1 flex-wrap">
                         {isHighest && (
@@ -139,7 +140,7 @@ const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
           
           {selectedPrice !== null ? (
             <div className="text-center text-sm text-gray-600">
-              Agregarás <strong className="text-indigo-600">${selectedPrice.toFixed(2)}</strong> al total
+              Agregarás <strong className="text-indigo-600">${selectedPrice}</strong> al total
             </div>
           ) : (
             <div className="text-center text-xs text-gray-500">

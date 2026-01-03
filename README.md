@@ -2,6 +2,10 @@
 
 Progressive Web App para escanear precios en supermercados usando la cámara y OCR.
 
+# TODO
+- agregar desdcripcion al escanear precio
+- buscar servidores gratis para el backend
+
 ## 🚀 Características
 
 - ✅ Escaneo de precios con cámara usando OCR (Tesseract.js)

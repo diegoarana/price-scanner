@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { formatTotalAR } from '../../utils/priceFormatter';
 
 const SessionCard = ({ session, onDelete }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -29,7 +30,7 @@ const SessionCard = ({ session, onDelete }) => {
             {formatDate(session.date)}
           </div>
           <div className="text-lg font-bold text-indigo-600 mt-1">
-            ${session.total.toFixed(2)}
+            ${formatTotalAR(session.total)}
           </div>
           <div className="text-sm text-gray-600">
             {session.itemCount} producto{session.itemCount !== 1 ? 's' : ''}
@@ -66,7 +67,7 @@ const SessionCard = ({ session, onDelete }) => {
             <div key={item.id} className="flex justify-between items-center py-1">
               <span className="text-sm text-gray-600">{item.name}</span>
               <span className="text-sm font-medium text-gray-800">
-                ${item.price.toFixed(2)}
+                ${item.price}
               </span>
             </div>
           ))}

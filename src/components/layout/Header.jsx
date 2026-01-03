@@ -15,7 +15,7 @@ const Header = ({ onInstallClick, showInstallButton }) => {
               Escáner de Precios
             </h1>
             <div className="mt-2 text-3xl font-bold text-gray-800">
-              ${currentTotal.toFixed(2)}
+              ${currentTotal}
             </div>
             <div className="text-sm text-gray-500">
               {currentItems.length} producto{currentItems.length !== 1 ? 's' : ''}

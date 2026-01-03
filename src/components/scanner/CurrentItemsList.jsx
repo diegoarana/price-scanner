@@ -41,7 +41,7 @@ const CurrentItemsList = () => {
             </div>
             <div className="flex items-center gap-3">
               <div className="font-bold text-indigo-600">
-                ${item.price.toFixed(2)}
+                ${item.price}
               </div>
               <button
                 onClick={() => removeItem(item.id)}
