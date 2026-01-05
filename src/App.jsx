@@ -3,6 +3,7 @@ import { ShoppingProvider, useShoppingContext } from './context/ShoppingContext'
 import Header from './components/layout/Header';
 import Navigation from './components/layout/Navigation';
 import InstallPWAButton from './components/layout/InstallPWAButton';
+import AppVersion from './components/layout/AppVersion';
 import CameraView from './components/scanner/CameraView';
 import ManualPriceInput from './components/scanner/ManualPriceInput';
 import CurrentItemsList from './components/scanner/CurrentItemsList';
@@ -57,8 +58,8 @@ const AppContent = () => {
     setShowInstallButton(false);
   };
 
-  const handlePriceDetected = (price) => {
-    addItem(price);
+  const handlePriceDetected = (price, productName = '') => {
+    addItem(price, productName);
   };
 
   return (
@@ -83,6 +84,9 @@ const AppContent = () => {
 
       {/* Banner de instalación flotante */}
       <InstallPWAButton />
+      
+      {/* Versión de la app */}
+      <AppVersion />
     </div>
   );
 };

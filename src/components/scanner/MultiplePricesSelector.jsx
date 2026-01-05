@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Check, X, DollarSign } from 'lucide-react';
 
-const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
+const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, method }) => {
   const [selectedPrice, setSelectedPrice] = useState(null);
 
   const handleConfirm = () => {
@@ -22,7 +22,7 @@ const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
   const methodInfo = getMethodInfo(method);
 
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm p-4 z-50">
       <div className="bg-white rounded-lg max-w-md w-full mx-4 animate-scale-in shadow-2xl max-h-[80vh] flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
@@ -49,6 +49,9 @@ const MultiplePricesSelector = ({ prices, onSelect, onCancel, method }) => {
           )}
           
           <p className="text-sm text-gray-600 mt-3">
+            {productName && (
+              <span className="italic block mb-2">"{productName}"</span>
+            )}
             Selecciona el precio correcto:
           </p>
         </div>

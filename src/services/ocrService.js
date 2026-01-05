@@ -91,8 +91,13 @@ class OCRService {
       console.log('Texto OCR raw:', data.text);
       console.log('Confianza:', data.confidence);
       
+      // Extraer nombre del producto (primera línea)
+      const lines = data.text.split('\n').filter(line => line.trim());
+      const productName = lines.length > 0 ? lines[0].trim() : '';
+      
       return {
         text: data.text.trim(),
+        productName: productName,
         confidence: data.confidence || 0
       };
     } catch (error) {

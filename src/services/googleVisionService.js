@@ -29,8 +29,14 @@ class GoogleVisionService {
       
       console.log('✅ Google Vision resultado:', result);
 
+      // Extraer nombre del producto
+      // Usar la primera descripción o la primera línea del texto completo
+      const productName = result.descriptions && result.descriptions.length > 0
+        ? result.descriptions[0]
+        : result.fullText.split('\n')[0]?.trim() || '';
       return {
         text: result.fullText || '',
+        productName: productName,
         prices: result.prices || [],
         descriptions: result.descriptions || [],
         confidence: 95, // Google Vision es muy confiable

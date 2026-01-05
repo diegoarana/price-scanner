@@ -36,6 +36,8 @@ export const extractPrices = (text) => {
     /(?<!\d)(\d{1,3}(?:\.\d{3})*,\d{2})(?!\d)/g,
     // $1.234 o $1234 (con símbolo, sin decimales)
     /\$\s*(\d{1,3}(?:\.\d{3})+)(?!\d)/g,
+    // 1.234 o 3.429 (sin símbolo, con punto como separador de miles)
+    /(?<!\d)(\d{1,3}\.\d{3})(?!\d)/g,
     // $123 o $12 (con símbolo, números pequeños)
     /\$\s*(\d{2,4})(?!\d)/g,
     // 1234 o 123 (solo números, 2-4 dígitos)

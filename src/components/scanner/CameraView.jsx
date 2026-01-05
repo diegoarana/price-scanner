@@ -49,13 +49,18 @@ const CameraView = ({ onPriceDetected }) => {
         setMultiplePrices({
           prices: result.allPrices,
           method: result.method,
-          descriptions: result.descriptions || []
+          descriptions: result.descriptions || [],
+          productName: result.productName || ''
         });
         setDebugInfo('');
       } else if (result.price) {
         // Un solo precio detectado
         console.log('✓ Precio detectado:', result.price);
-        setDetectedPrice(result.price);
+        console.log('✓ Producto:', result.productName);
+        setDetectedPrice({
+          price: result.price,
+          productName: result.productName || ''
+        });
         setDebugInfo('');
       } else {
         const message = result.text 
@@ -76,7 +81,7 @@ const CameraView = ({ onPriceDetected }) => {
 
   const handleAcceptPrice = () => {
     if (detectedPrice && onPriceDetected) {
-      onPriceDetected(detectedPrice);
+      onPriceDetected(detectedPrice.price, detectedPrice.productName);
       setDetectedPrice(null);
       setProcessedImage(null);
       setOcrMethod('');
@@ -90,8 +95,8 @@ const CameraView = ({ onPriceDetected }) => {
   };
 
   const handleSelectMultiplePrice = (selectedPrice) => {
-    if (onPriceDetected) {
-      onPriceDetected(selectedPrice);
+    if (onPriceDetected && multiplePrices) {
+      onPriceDetected(selectedPrice, multiplePrices.productName || '');
       setMultiplePrices(null);
       setProcessedImage(null);
       setOcrMethod('');
@@ -171,7 +176,8 @@ const CameraView = ({ onPriceDetected }) => {
         {/* Selector de precio único */}
         {detectedPrice && (
           <PriceDetectionOverlay
-            price={detectedPrice}
+            price={detectedPrice.price}
+            productName={detectedPrice.productName}
             onAccept={handleAcceptPrice}
             onReject={handleRejectPrice}
             method={ocrMethod}
@@ -182,6 +188,7 @@ const CameraView = ({ onPriceDetected }) => {
         {multiplePrices && (
           <MultiplePricesSelector
             prices={multiplePrices.prices}
+            productName={multiplePrices.productName}
             method={multiplePrices.method}
             onSelect={handleSelectMultiplePrice}
             onCancel={handleCancelMultiplePrice}

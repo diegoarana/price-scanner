@@ -37,8 +37,13 @@ class OCRSpaceService {
         const text = data.ParsedResults[0].ParsedText;
         const exitCode = data.ParsedResults[0].FileParseExitCode;
         
+        // Extraer nombre del producto (primera línea hasta el primer \n)
+        const lines = text.split('\n').filter(line => line.trim());
+        const productName = lines.length > 0 ? lines[0].trim() : '';
+        
         return {
           text: text,
+          productName: productName,
           confidence: exitCode === 1 ? 85 : 50, // 1 = success
           error: data.ErrorMessage
         };
@@ -46,6 +51,7 @@ class OCRSpaceService {
 
       return {
         text: '',
+        productName: '',
         confidence: 0,
         error: data.ErrorMessage || 'No text detected'
       };

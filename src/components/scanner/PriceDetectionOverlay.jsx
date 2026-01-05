@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Check, Sparkles } from 'lucide-react';
 
-const PriceDetectionOverlay = ({ price, onAccept, onReject, method }) => {
+const PriceDetectionOverlay = ({ price, productName, onAccept, onReject, method }) => {
   const getMethodInfo = (methodName) => {
     const methods = {
       'google-vision': { name: 'Google Vision', icon: '☁️', color: 'text-green-600' },
@@ -35,6 +35,12 @@ const PriceDetectionOverlay = ({ price, onAccept, onReject, method }) => {
           <div className="text-5xl font-bold text-indigo-600 mb-4">
             ${price}
           </div>
+          
+          {productName && (
+            <div className="text-lg text-gray-600 mb-4 italic">
+              "{productName}"
+            </div>
+          )}
           
           <div className="flex gap-2">
             <button

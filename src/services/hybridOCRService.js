@@ -88,6 +88,7 @@ class HybridOCRService {
     return {
       price: price,
       allPrices: allPrices,
+      productName: ocrResult.productName || '',
       descriptions: ocrResult.descriptions || [],
       text: ocrResult.text,
       confidence: ocrResult.confidence,
@@ -107,6 +108,7 @@ class HybridOCRService {
     return {
       price: price,
       allPrices: allPrices,
+      productName: ocrResult.productName || '',
       descriptions: [],
       text: ocrResult.text,
       confidence: ocrResult.confidence,
@@ -124,6 +126,7 @@ class HybridOCRService {
     return {
       price: price,
       allPrices: allPrices,
+      productName: ocrResult.productName || '',
       descriptions: [],
       text: ocrResult.text,
       confidence: ocrResult.confidence,
