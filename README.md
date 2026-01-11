@@ -3,8 +3,9 @@
 Progressive Web App para escanear precios en supermercados usando la cámara y OCR.
 
 # TODO
-- agregar desdcripcion al escanear precio
-- buscar servidores gratis para el backend
+- Agregar nombre a la lista de compras
+- Agregar multiplicador de Items, ver cual es la mejor manera.
+- Buscar servidores gratis para el backend (Google Vision AI)
 
 ## 🚀 Características
 

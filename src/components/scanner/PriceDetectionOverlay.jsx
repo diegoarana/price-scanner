@@ -14,7 +14,7 @@ const PriceDetectionOverlay = ({ price, productName, onAccept, onReject, method 
   const methodInfo = getMethodInfo(method);
 
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm z-50">
       <div className="bg-white rounded-lg p-6 max-w-sm mx-4 animate-scale-in shadow-2xl">
         <div className="text-center">
           {/* Badge del método usado */}
