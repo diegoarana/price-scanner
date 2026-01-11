@@ -1,7 +1,7 @@
 {
   "name": "price-scanner",
   "private": true,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "App para escanear precios en supermercados",
   "type": "module",
   "scripts": {

@@ -26,14 +26,19 @@ const SessionCard = ({ session, onDelete }) => {
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-2">
         <div>
+          <h2 className="text-xl font-bold text-gray-800">
+            {session.name}
+          </h2>
+          <div className="flex">
+            <div className="flex-1 text-lg font-bold text-indigo-600 mr-1">
+              ${formatTotalAR(session.total)}
+            </div>
+            <div className="flex justify-end text-sm text-gray-600 mt-1">
+                {" | "}{session.itemCount} producto{session.itemCount !== 1 ? 's' : ''}
+            </div>
+          </div>
           <div className="text-sm text-gray-500">
             {formatDate(session.date)}
-          </div>
-          <div className="text-lg font-bold text-indigo-600 mt-1">
-            ${formatTotalAR(session.total)}
-          </div>
-          <div className="text-sm text-gray-600">
-            {session.itemCount} producto{session.itemCount !== 1 ? 's' : ''}
           </div>
         </div>
         <button

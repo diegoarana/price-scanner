@@ -65,7 +65,7 @@ export const ShoppingProvider = ({ children }) => {
   };
 
   // Finalizar compra y guardar en historial
-  const finishShopping = () => {
+  const finishShopping = (name) => {
     if (currentItems.length === 0) return false;
     
     const newSession = {
@@ -73,7 +73,8 @@ export const ShoppingProvider = ({ children }) => {
       date: new Date().toISOString(),
       total: currentTotal,
       items: currentItems,
-      itemCount: currentItems.length
+      itemCount: currentItems.length,
+      name
     };
     
     setScanHistory(prev => [newSession, ...prev]);
