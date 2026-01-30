@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
+import QuantitySelector from './QuantitySelector';
 
 const ManualPriceInput = ({ onAddPrice }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [multiplier, setMultiplier] = useState(1);
 
-  const isDisabledInput = (!price || parseFloat(price) <= 0) || (!description || description === '') 
+  const isInvalidQuantity = isNaN(multiplier) || multiplier < 1;
+
+  const isDisabledInput = (!price || parseFloat(price) <= 0) || (!description || description === '') || isInvalidQuantity
 
   const cleanInputs = () => {
       setPrice('');
@@ -16,7 +20,7 @@ const ManualPriceInput = ({ onAddPrice }) => {
   const handleSubmit = () => {
     const numPrice = parseFloat(price);
     if (numPrice > 0) {
-      onAddPrice(numPrice, description);
+      onAddPrice(numPrice, multiplier, description);
       cleanInputs();
       setIsOpen(false);
     }
@@ -62,6 +66,11 @@ const ManualPriceInput = ({ onAddPrice }) => {
             onChange={(e) => setDescription(e.target.value)}
             onKeyPress={handleKeyPress}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          />
+          <QuantitySelector
+              value={multiplier} 
+              onChange={setMultiplier}
+              label="Cantidad"
           />
           <div className="flex gap-2">
             <button

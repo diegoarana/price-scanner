@@ -79,9 +79,9 @@ const CameraView = ({ onPriceDetected }) => {
     }
   };
 
-  const handleAcceptPrice = () => {
+  const handleAcceptPrice = (quantity = 1) => {
     if (detectedPrice && onPriceDetected) {
-      onPriceDetected(detectedPrice.price, detectedPrice.productName);
+      onPriceDetected(detectedPrice.price, quantity, detectedPrice.productName);
       setDetectedPrice(null);
       setProcessedImage(null);
       setOcrMethod('');
@@ -94,9 +94,9 @@ const CameraView = ({ onPriceDetected }) => {
     setOcrMethod('');
   };
 
-  const handleSelectMultiplePrice = (selectedPrice) => {
+  const handleSelectMultiplePrice = (selectedPrice, quantity) => {
     if (onPriceDetected && multiplePrices) {
-      onPriceDetected(selectedPrice, multiplePrices.productName || '');
+      onPriceDetected(selectedPrice, quantity, multiplePrices.productName || '');
       setMultiplePrices(null);
       setProcessedImage(null);
       setOcrMethod('');

@@ -58,8 +58,8 @@ const AppContent = () => {
     setShowInstallButton(false);
   };
 
-  const handlePriceDetected = (price, productName = '') => {
-    addItem(price, productName);
+  const handlePriceDetected = (price, quantity, productName = '') => {
+    addItem(price, quantity, productName);
   };
 
   return (

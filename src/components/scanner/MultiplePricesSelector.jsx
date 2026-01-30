@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Check, X, DollarSign } from 'lucide-react';
+import QuantitySelector from './QuantitySelector';
 
 const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, method }) => {
   const [selectedPrice, setSelectedPrice] = useState(null);
+  const [multiplier, setMultiplier] = useState(1);
 
-  const handleConfirm = () => {
+  const isInvalidQuantity = isNaN(multiplier) || multiplier < 1;
+
+  const handleConfirm = (quantity) => {
     if (selectedPrice !== null) {
-      onSelect(selectedPrice);
+      onSelect(selectedPrice, quantity);
     }
   };
 
@@ -38,7 +42,6 @@ const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, metho
             </button>
           </div>
           
-          {/* Badge del método usado */}
           {method && (
             <div className="inline-flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-full text-xs">
               <span>{methodInfo.icon}</span>
@@ -47,6 +50,14 @@ const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, metho
               </span>
             </div>
           )}
+
+          <div className="mb-4">
+            <QuantitySelector
+              value={multiplier} 
+              onChange={setMultiplier}
+              label="Cantidad"
+            />
+          </div>
           
           <p className="text-sm text-gray-600 mt-3">
             {productName && (
@@ -132,8 +143,8 @@ const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, metho
               Ninguno
             </button>
             <button
-              onClick={handleConfirm}
-              disabled={selectedPrice === null}
+              onClick={() => handleConfirm(multiplier)}
+              disabled={selectedPrice === null || isInvalidQuantity}
               className="flex-1 bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium shadow-md disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               <Check className="w-5 h-5" />
@@ -143,7 +154,7 @@ const MultiplePricesSelector = ({ prices, productName, onSelect, onCancel, metho
           
           {selectedPrice !== null ? (
             <div className="text-center text-sm text-gray-600">
-              Agregarás <strong className="text-indigo-600">${selectedPrice}</strong> al total
+              Agregarás <strong className="text-indigo-600">${selectedPrice * multiplier}</strong> al total
             </div>
           ) : (
             <div className="text-center text-xs text-gray-500">

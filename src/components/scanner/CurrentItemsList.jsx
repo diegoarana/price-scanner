@@ -50,12 +50,15 @@ const CurrentItemsList = () => {
                     className="flex items-center justify-between py-2 border-b border-gray-200 last:border-b-0"
                   >
                     <div className="flex-1">
-                      <div className="font-medium text-gray-800">{item.name}</div>
+                      <div className="flex items-center gap-2">
+                        <div className="font-medium text-gray-800">{item.name}</div>
+                        <div className="text-sm text-gray-500">{item.quantity > 1 ? `${item.price} X ${item.quantity}` : 'X 1'}</div>
+                      </div>
                       <div className="text-sm text-gray-500">{formatDate(item.timestamp)}</div>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="font-bold text-indigo-600">
-                        ${item.price}
+                        ${item.price * item.quantity}
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}

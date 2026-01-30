@@ -1,7 +1,9 @@
 import React from 'react';
 import { X, Check, Sparkles } from 'lucide-react';
+import QuantitySelector from './QuantitySelector';
 
 const PriceDetectionOverlay = ({ price, productName, onAccept, onReject, method }) => {
+  const [multiplier, setMultiplier] = React.useState(1);
   const getMethodInfo = (methodName) => {
     const methods = {
       'google-vision': { name: 'Google Vision', icon: '☁️', color: 'text-green-600' },
@@ -35,7 +37,15 @@ const PriceDetectionOverlay = ({ price, productName, onAccept, onReject, method 
           <div className="text-5xl font-bold text-indigo-600 mb-4">
             ${price}
           </div>
-          
+
+          <div className="mb-4">
+            <QuantitySelector 
+              value={multiplier} 
+              onChange={setMultiplier}
+              label="Cantidad"
+            />
+          </div>
+  
           {productName && (
             <div className="text-lg text-gray-600 mb-4 italic">
               "{productName}"
@@ -51,8 +61,9 @@ const PriceDetectionOverlay = ({ price, productName, onAccept, onReject, method 
               Cancelar
             </button>
             <button
-              onClick={onAccept}
-              className="flex-1 bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
+              onClick={() => onAccept(multiplier)}
+              disabled={isNaN(multiplier) || multiplier < 1}
+              className="flex-1 bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
             >
               <Check className="w-5 h-5" />
               Agregar

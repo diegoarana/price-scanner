@@ -3,8 +3,8 @@
 Progressive Web App para escanear precios en supermercados usando la cámara y OCR.
 
 # TODO
-- Agregar nombre a la lista de compras
-- Agregar multiplicador de Items, ver cual es la mejor manera.
+- Modificar seccion del input del nombre de la lista de compras para que sea un modal
+- Advertencia de lista guardada podria ser un modal de la app.
 - Buscar servidores gratis para el backend (Google Vision AI)
 
 ## 🚀 Características

@@ -70,9 +70,9 @@ const SessionCard = ({ session, onDelete }) => {
         <div className="mt-3 pt-3 border-t border-gray-200 space-y-2">
           {session.items.map((item) => (
             <div key={item.id} className="flex justify-between items-center py-1">
-              <span className="text-sm text-gray-600">{item.name}</span>
+              <span className="text-sm text-gray-600">{item.name} | {item.quantity > 1 ? `${item.price} X ${item.quantity}` : 'X 1'}</span>
               <span className="text-sm font-medium text-gray-800">
-                ${item.price}
+                ${item.price * item.quantity}
               </span>
             </div>
           ))}

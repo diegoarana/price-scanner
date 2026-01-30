@@ -33,16 +33,17 @@ export const ShoppingProvider = ({ children }) => {
   }, [scanHistory]);
 
   // Agregar un item a la compra actual
-  const addItem = (price, name = '') => {
+  const addItem = (price, quantity, name = '') => {
     const newItem = {
       id: Date.now(),
       price: parseFloat(price),
+      quantity: quantity || 1,
       name: name || `Producto ${currentItems.length + 1}`,
       timestamp: new Date().toISOString()
     };
     
     setCurrentItems(prev => [...prev, newItem]);
-    setCurrentTotal(prev => prev + parseFloat(price));
+    setCurrentTotal(prev => prev + parseFloat(price * quantity));
     return newItem;
   };
 
